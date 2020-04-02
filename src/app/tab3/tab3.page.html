@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-title>
+      Títulos Finalizados...
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+  <ion-searchbar animated color="light" (ionChange)="filterList($event)"></ion-searchbar>
+
+  <ion-grid>
+    <ion-row class="content-list-row">
+      <ion-col size="6" *ngFor = "let title of filteredMangas" class="card-col">
+
+        <ion-card tappable (click)="abreConfirmacao(title)" (press)="abreEditar(title)">
+          <img src="{{title.thumb}}">
+          <div class="card-title">{{title.lastIssue}}</div>
+          <ion-card-title>
+            <div class="title-card">
+              {{title.title}}
+            </div>
+          </ion-card-title>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

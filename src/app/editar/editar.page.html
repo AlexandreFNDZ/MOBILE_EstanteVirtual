@@ -1,0 +1,36 @@
+<ion-content color="light">
+  <div class="bg-fundo">
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)" >
+      <ion-item>
+        <ion-label><p>{{ selectedManga.title }}</p></ion-label>
+      </ion-item>
+
+      <ion-radio-group formControlName="status">  
+        <ion-item class="radio-item">  
+          <ion-label>Andamento</ion-label>
+          <ion-radio value="andamento"></ion-radio>
+        </ion-item>
+        
+        <ion-item class="radio-item">  
+          <ion-label>Finalizado</ion-label>
+          <ion-radio value="finalizado"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
+      <ion-item class="last-issue-item">
+        <ion-label>Último Volume</ion-label>
+        <ion-input type="number" formControlName="lastIssue"></ion-input>
+      </ion-item>
+
+      <ion-item class="thumb-item">
+        <ion-label position="floating">Thumbnail (url)</ion-label>
+        <ion-input type="url" placeholder="https://linkdaimagem.jpg" formControlName="thumb"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formValid" class="form-error">Preencha todos os campos corretamente</div>
+      <ion-button class="delete-button" slot="start" color="danger" (click)="onDelete()">Excluir</ion-button>
+      <ion-button class="edit-button" type="submit" slot="end">Editar</ion-button>
+    </form>
+  </div>
+
+</ion-content>

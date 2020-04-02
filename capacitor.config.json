@@ -1,0 +1,9 @@
+{
+  "appId": "br.com.alexandrefp.estantevirtual",
+  "appName": "Estante Online",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "src",
+  "cordova": {},
+  "linuxAndroidStudioPath": "/snap/android-studio/84/android-studio/bin/studio.sh"
+}

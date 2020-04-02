@@ -1,0 +1,7 @@
+{
+  "name": "estanteOnline",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
