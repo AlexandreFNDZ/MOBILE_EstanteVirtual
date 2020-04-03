@@ -66,10 +66,11 @@ export class Tab1Page {
 
     popover.onDidDismiss()
       .then((form) => {
-        let editForm = form['data']['editForm'];
-        let editId = form['data']['id'];
+        
+        if (form['data'] != undefined && form['data'] != null) {
+          let editForm = form['data']['editForm'];
+          let editId = form['data']['id'];
 
-        if (editForm != undefined && editForm != null) {
           console.log(editForm);
 
           if(editForm == -1) {
