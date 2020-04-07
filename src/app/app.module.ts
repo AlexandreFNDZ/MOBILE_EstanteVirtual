@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -20,6 +20,13 @@ import { Tab2PageModule } from './tab2/tab2.module';
 import { Tab3PageModule } from './tab3/tab3.module';
 import { AdicionarPageModule } from './adicionar/adicionar.module';
 import { EditarPageModule } from './editar/editar.module';
+
+export class MyHammerConfig extends HammerGestureConfig {
+  overrides = <any> {
+      'pinch': { enable: false },
+      'rotate': { enable: false }
+  }
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,7 +58,8 @@ import { EditarPageModule } from './editar/editar.module';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }
   ],
   bootstrap: [AppComponent]
 })
