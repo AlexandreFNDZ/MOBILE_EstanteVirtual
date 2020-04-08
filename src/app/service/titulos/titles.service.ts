@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Manga } from 'src/app/models/manga-model';
+import { ColecaoService } from '../colecao.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class TitlesService {
   private andamentoMangas: Manga[];
   private finalizadoMangas: Manga[]; 
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private colecaoService: ColecaoService) {
     this.allMangas = this.getMangas();
     this.andamentoMangas = this.getAndamento();
     this.finalizadoMangas = this.getFinalizado();
@@ -65,6 +66,8 @@ export class TitlesService {
     } else if (mangaNovo.status == 'finalizado') {
       this.finalizadoMangas.push(mangaNovo);
     }
+
+    this.colecaoService.insert(mangaNovo);
   }
 
   public editManga(idParam, editParam) {
@@ -73,6 +76,8 @@ export class TitlesService {
         manga.lastIssue = editParam.lastIssue;
         manga.status = editParam.status;
         manga.thumb = editParam.thumb;
+
+        this.colecaoService.update(manga);
       }
     });
 
@@ -83,6 +88,8 @@ export class TitlesService {
   public deleteManga(idParam) {
     for (let i = 0; i < this.allMangas.length; i++) {
       if (this.allMangas[i].id == idParam) {
+        this.colecaoService.remove(this.allMangas[i]);
+
         this.allMangas.splice(i,1);
         break;
       }
@@ -93,7 +100,8 @@ export class TitlesService {
   }
 
   private getMangas() {
-    let mangas = Manga.populaManga();
+    // let mangas = Manga.populaManga();
+    let mangas = this.colecaoService.getAll();
 
     mangas.forEach((manga) => {
       manga = this.verificaThumb(manga);

@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { AdicionarPage } from '../adicionar/adicionar.page';
 import { Manga } from '../models/manga-model';
 import { TitlesService } from '../service/titulos/titles.service';
+import { ColecaoService } from '../service/colecao.service';
 
 @Component({
   selector: 'app-tabs',
@@ -12,7 +13,7 @@ import { TitlesService } from '../service/titulos/titles.service';
 export class TabsPage {
   public mangaForm: Manga;
 
-  constructor(public modalCtrl: ModalController, private titleService: TitlesService) {
+  constructor(public modalCtrl: ModalController, private titleService: TitlesService, private colecaoService: ColecaoService) {
 
   }
 

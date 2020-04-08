@@ -1,5 +1,5 @@
 export class Manga {
-    private static lastId: number = 0;
+    private static lastId: number;
     public id: number;
     public title: string;
     public lastIssue: number;
@@ -16,6 +16,11 @@ export class Manga {
         this.thumb = thumbParam;
 
         Manga.lastId++;
+    }
+
+    static setLastId(lastIdParam: number) {
+        Manga.lastId = lastIdParam;
+        console.log("LastId do setLastId = " + Manga.lastId);
     }
 
     static populaManga():Manga[] {

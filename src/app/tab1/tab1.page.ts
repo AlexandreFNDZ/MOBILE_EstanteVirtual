@@ -18,6 +18,9 @@ export class Tab1Page {
   ionViewDidEnter(){
     this.mangas = this.titleService.getAllMangas();
     this.filteredMangas = this.mangas;
+    console.log("ionDidEnter tab1 mangas.length = " + this.mangas.length);
+    console.log("ionDidEnter tab1 mangas = " + this.mangas);
+    Manga.setLastId(this.mangas.length);
   }
 
   filterList(event) {
@@ -44,6 +47,8 @@ export class Tab1Page {
     this.filteredMangas.forEach((manga:Manga) => {
       if (manga.id == elementClicked.id) {
         manga.lastIssue++;
+
+        this.titleService.editManga(elementClicked.id, manga);
       }
     });
   }
