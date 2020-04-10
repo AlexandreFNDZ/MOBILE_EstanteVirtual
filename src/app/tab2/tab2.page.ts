@@ -18,6 +18,7 @@ export class Tab2Page {
   ionViewDidEnter(){
     this.mangas = this.titleService.getAndamentoMangas();
     this.filteredMangas = this.mangas;
+    console.log(this.filteredMangas);
   }
 
   filterList(event) {

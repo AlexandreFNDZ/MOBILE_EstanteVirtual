@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { AdicionarPage } from '../adicionar/adicionar.page';
 import { Manga } from '../models/manga-model';
 import { TitlesService } from '../service/titulos/titles.service';
-import { ColecaoService } from '../service/colecao.service';
 
 @Component({
   selector: 'app-tabs',
@@ -13,7 +12,7 @@ import { ColecaoService } from '../service/colecao.service';
 export class TabsPage {
   public mangaForm: Manga;
 
-  constructor(public modalCtrl: ModalController, private titleService: TitlesService, private colecaoService: ColecaoService) {
+  constructor(public modalCtrl: ModalController, private titleService: TitlesService) {
 
   }
 

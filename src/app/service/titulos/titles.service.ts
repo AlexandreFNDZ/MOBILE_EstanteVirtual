@@ -20,11 +20,25 @@ export class TitlesService {
   private allMangas: Manga[];
   private andamentoMangas: Manga[];
   private finalizadoMangas: Manga[]; 
+  public static isReadyProp: boolean = false;
 
   constructor(private httpClient: HttpClient, private colecaoService: ColecaoService) {
-    this.allMangas = this.getMangas();
-    this.andamentoMangas = this.getAndamento();
-    this.finalizadoMangas = this.getFinalizado();
+    if(!TitlesService.isReadyProp) {
+      this.isReady();
+    }
+  }
+
+  public async isReady() {
+    if (!TitlesService.isReadyProp) {
+      await this.getMangas().then((value) => {
+        this.allMangas = value;
+  
+        this.andamentoMangas = this.getAndamento();
+        this.finalizadoMangas = this.getFinalizado();
+  
+        TitlesService.isReadyProp = true;
+      });
+    }
   }
 
   getAllTitles() {
@@ -99,14 +113,20 @@ export class TitlesService {
     this.andamentoMangas = this.getAndamento();
   }
 
-  private getMangas() {
+  private async getMangas() {
     // let mangas = Manga.populaManga();
-    let mangas = this.colecaoService.getAll();
+    let mangas;
 
-    mangas.forEach((manga) => {
-      manga = this.verificaThumb(manga);
-    })
-
+    mangas = await this.colecaoService.getAll();
+      
+    if (mangas) {
+      mangas.forEach((manga) => {
+        manga = this.verificaThumb(manga);
+      });
+    } else {
+      mangas = [];
+    }
+    
     return mangas;
   }
 

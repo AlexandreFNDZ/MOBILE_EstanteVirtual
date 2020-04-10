@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, KeyValueDiffers } from '@angular/core';
 import { TitlesService } from '../service/titulos/titles.service';
 import { Manga } from '../models/manga-model';
 import { PopoverController } from '@ionic/angular';
@@ -10,17 +10,15 @@ import { EditarPage } from '../editar/editar.page';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  public mangas:any[];
-  public filteredMangas:any[];
+  public mangas: any[];
+  public filteredMangas: any[];
 
   constructor(private titleService: TitlesService, public popoverController: PopoverController) {}
 
-  ionViewDidEnter(){
+  async ionViewDidEnter(){
+    await this.titleService.isReady();
     this.mangas = this.titleService.getAllMangas();
     this.filteredMangas = this.mangas;
-    console.log("ionDidEnter tab1 mangas.length = " + this.mangas.length);
-    console.log("ionDidEnter tab1 mangas = " + this.mangas);
-    Manga.setLastId(this.mangas.length);
   }
 
   filterList(event) {

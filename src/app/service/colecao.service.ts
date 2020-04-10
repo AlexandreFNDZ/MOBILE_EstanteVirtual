@@ -10,18 +10,6 @@ export class ColecaoService {
 
   constructor(private storage: Storage) { }
 
-  public getLastKey() {
-    let lastKey = 0;
-
-    this.storage.forEach((key: string) => {
-      lastKey = Number.parseInt(key);
-    }).then(() => {
-      return lastKey;
-    })
-
-    return lastKey;
-  }
-
   public insert(mangaParam: Manga) {
     this.save(mangaParam);
   }
@@ -38,26 +26,23 @@ export class ColecaoService {
     this.storage.remove(mangaParam.id.toString());
   }
 
-  public getAll() {
+  public async getAll() {
     let mangaList: MangaList[] = [];
     let mangas: Manga[] = [];
 
-    this.storage.forEach((value: Manga, key: string, iterationNumber: number) => {
+    
+    await this.storage.forEach((value: Manga, key: string, iterationNumber: number) => {
       let manga = new MangaList();
 
       manga.key = key;
       manga.manga = value;
 
       mangaList.push(manga);
-    }).then(() => {
-      mangaList.forEach((item) => {
-        mangas.push(item.manga);
-      })
-
-      return mangas;
-    }).catch((error) => {
-      return mangas;
     });
+
+    mangaList.forEach((item) => {
+      mangas.push(item.manga);
+    })
 
     return mangas;
   }

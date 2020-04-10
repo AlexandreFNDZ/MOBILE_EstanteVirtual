@@ -9,12 +9,20 @@
 <ion-content color="dark">
   <ion-searchbar animated color="light" (ionChange)="filterList($event)"></ion-searchbar>
 
+  <div *ngIf="filteredMangas == undefined || filteredMangas.length == 0" class="mensagem-vazia">
+    <span class="mensagem-titulo">Finalizado</span>
+    <span class="mensagem-texto">Nenhum título finalido!</span>
+  </div>
+
   <ion-grid>
     <ion-row class="content-list-row">
       <ion-col size="6" *ngFor = "let title of filteredMangas" class="card-col">
 
         <ion-card tappable (click)="abreConfirmacao(title)" (press)="abreEditar(title)">
-          <img src="{{title.thumb}}">
+          <div class="thumb-card" [ngStyle]="{'background-image': 'url(' + title.thumb + ')'}">
+            <!-- <img src="{{title.thumb}}"> -->
+          </div>
+          
           <div class="card-title">{{title.lastIssue}}</div>
           <ion-card-title>
             <div class="title-card">
