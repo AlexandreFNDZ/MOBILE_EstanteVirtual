@@ -12,12 +12,27 @@ import { PopoverController } from '@ionic/angular';
 export class Tab3Page {
   public mangas:any[];
   public filteredMangas:any[];
+  public totalTitulos: number;
+  public totalVolumes: number;
 
   constructor(private titleService: TitlesService, private popoverController: PopoverController) {}
 
   ionViewDidEnter(){
     this.mangas = this.titleService.getFinalizadoMangas();
     this.filteredMangas = this.mangas;
+
+    this.totalTitulos = this.filteredMangas.length;
+    this.totalVolumes = this.calculaTotalVolumes();
+  }
+
+  calculaTotalVolumes() {
+    let totalReturn = 0;
+
+    this.filteredMangas.forEach((manga) => {
+      totalReturn += manga.lastIssue;
+    });
+
+    return totalReturn;
   }
 
   filterList(event) {
@@ -44,6 +59,9 @@ export class Tab3Page {
     this.filteredMangas.forEach((manga:Manga) => {
       if (manga.id == elementClicked.id) {
         manga.lastIssue++;
+
+        this.totalVolumes = this.calculaTotalVolumes();
+        this.titleService.editManga(elementClicked.id, manga);
       }
     });
   }
@@ -70,7 +88,13 @@ export class Tab3Page {
         let editId = form['data']['id'];
         if (editForm != undefined && editForm != null) {
           console.log(editForm);
-          this.titleService.editManga(editId, editForm);
+          
+          if(editForm == -1) {
+            this.titleService.deleteManga(editId);
+          } else {
+            this.titleService.editManga(editId, editForm);
+          }
+
           this.ionViewDidEnter();
         }
       });

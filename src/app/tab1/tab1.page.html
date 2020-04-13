@@ -1,7 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="warning">
     <ion-title>
-      Todos os Títulos...
+      <ion-row>
+        <ion-col size="4" class="header-logo">
+          <ion-icon name="planet"></ion-icon>
+        </ion-col>
+        <ion-col size="2" class="header-info">Total<br>Títulos</ion-col>
+        <ion-col size="2" class="header-value">{{ totalTitulos }}</ion-col>
+        <ion-col size="2" class="header-info">Total<br>Volumes</ion-col>
+        <ion-col size="2" class="header-value">{{ totalVolumes }}</ion-col>
+      </ion-row>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -16,7 +24,7 @@
 
   <ion-grid>
     <ion-row class="content-list-row">
-      <ion-col size="6" *ngFor = "let title of filteredMangas" mySpy class="card-col">
+      <ion-col size="6" *ngFor="let title of filteredMangas" class="card-col">
 
         <ion-card tappable (click)="abreConfirmacao(title)" (press)="abreEditar(title)">
           <div class="thumb-card" [ngStyle]="{'background-image': 'url(' + title.thumb + ')'}">

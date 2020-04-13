@@ -12,6 +12,8 @@ import { EditarPage } from '../editar/editar.page';
 export class Tab1Page {
   public mangas: any[];
   public filteredMangas: any[];
+  public totalTitulos: number;
+  public totalVolumes: number;
 
   constructor(private titleService: TitlesService, public popoverController: PopoverController) {}
 
@@ -19,6 +21,19 @@ export class Tab1Page {
     await this.titleService.isReady();
     this.mangas = this.titleService.getAllMangas();
     this.filteredMangas = this.mangas;
+
+    this.totalTitulos = this.filteredMangas.length;
+    this.totalVolumes = this.calculaTotalVolumes();
+  }
+
+  calculaTotalVolumes() {
+    let totalReturn = 0;
+
+    this.filteredMangas.forEach((manga) => {
+      totalReturn += manga.lastIssue;
+    });
+
+    return totalReturn;
   }
 
   filterList(event) {
@@ -46,6 +61,7 @@ export class Tab1Page {
       if (manga.id == elementClicked.id) {
         manga.lastIssue++;
 
+        this.totalVolumes = this.calculaTotalVolumes();
         this.titleService.editManga(elementClicked.id, manga);
       }
     });

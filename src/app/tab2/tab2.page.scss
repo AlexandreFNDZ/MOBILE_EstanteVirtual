@@ -50,3 +50,26 @@ ion-card-title {
   padding-top: 10px;
   font-size: 1em;
 }
+
+.header-value, .header-info, .header-logo {
+  padding: 0px 5px 0px 10px;
+
+  display: flex;
+  align-items: center;
+}
+
+.header-value {
+  justify-content: flex-start;
+}
+
+.header-info {
+  font-size: 0.55em;
+  overflow: hidden;
+
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.header-logo {
+  font-size: 2em;
+}
