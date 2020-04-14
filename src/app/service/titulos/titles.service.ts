@@ -11,10 +11,10 @@ export class TitlesService {
   private API_KEY:string = "5577cbe028c4adfb8878314a80a40a76";
   private HASH_KEY:string = "a85a176848ff535239b605700eb0a3f7"; // md5 of ts + private key + public key
   private imageArray:string[] = [
-    "https://i.pinimg.com/564x/1b/c8/c9/1bc8c969dd63c9cca0c6bf16ed0de27a.jpg",
-    "https://i.pinimg.com/564x/c9/82/34/c98234dbee41f26bd47ac1833a79a720.jpg",
-    "https://i.pinimg.com/564x/34/e3/da/34e3dafa67def4b31743d7d31c94d28a.jpg",
-    "https://i.pinimg.com/564x/94/5a/ac/945aac49311347d05fb5a8869c0cf3f8.jpg"
+    "https://i.pinimg.com/564x/1b/c8/c9/1bc8c969dd63c9cca0c6bf16ed0de27a.jpg"
+    // "https://i.pinimg.com/564x/c9/82/34/c98234dbee41f26bd47ac1833a79a720.jpg",
+    // "https://i.pinimg.com/564x/34/e3/da/34e3dafa67def4b31743d7d31c94d28a.jpg",
+    // "https://i.pinimg.com/564x/94/5a/ac/945aac49311347d05fb5a8869c0cf3f8.jpg"
   ];
 
   private allMangas: Manga[];
@@ -161,7 +161,8 @@ export class TitlesService {
   }
 
   private verificaThumb(manga: Manga) {
-    let index = Math.floor(Math.random() * 4);
+    // let index = Math.floor(Math.random() * 4);
+    let index = 0;
 
     if(manga.thumb.trim().length <= 0) {
       manga.thumb = this.imageArray[index]
