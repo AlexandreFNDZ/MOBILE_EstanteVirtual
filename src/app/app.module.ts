@@ -21,6 +21,7 @@ import { Tab2PageModule } from './tab2/tab2.module';
 import { Tab3PageModule } from './tab3/tab3.module';
 import { AdicionarPageModule } from './adicionar/adicionar.module';
 import { EditarPageModule } from './editar/editar.module';
+import { EventEmitterService } from './event-emitter.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
@@ -61,7 +62,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }
+    { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig },
+    EventEmitterService
   ],
   bootstrap: [AppComponent]
 })

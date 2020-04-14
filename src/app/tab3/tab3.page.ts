@@ -1,26 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TitlesService } from '../service/titulos/titles.service';
 import { Manga } from '../models/manga-model';
 import { EditarPage } from '../editar/editar.page';
 import { PopoverController } from '@ionic/angular';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page {
+export class Tab3Page implements OnInit {
   public mangas:any[];
   public filteredMangas:any[];
   public totalTitulos: number;
   public totalVolumes: number;
 
-  constructor(private titleService: TitlesService, private popoverController: PopoverController) {}
+  constructor(private titleService: TitlesService, public popoverController: PopoverController, private eventEmitterService: EventEmitterService) {}
 
+  ngOnInit() { 
+    this.eventEmitterService.subsVar = this.eventEmitterService.    
+    invokeFirstComponentFunction.subscribe(() => {    
+      this.ionViewDidEnter();    
+    });
+  }
+  
   ionViewDidEnter(){
     this.mangas = this.titleService.getFinalizadoMangas();
     this.filteredMangas = this.mangas;
 
+    this.setTotals();
+    console.log("entrou tab3DidEnter");
+  }
+
+  setTotals() {
     this.totalTitulos = this.filteredMangas.length;
     this.totalVolumes = this.calculaTotalVolumes();
   }
@@ -60,7 +73,7 @@ export class Tab3Page {
       if (manga.id == elementClicked.id) {
         manga.lastIssue++;
 
-        this.totalVolumes = this.calculaTotalVolumes();
+        this.setTotals();
         this.titleService.editManga(elementClicked.id, manga);
       }
     });

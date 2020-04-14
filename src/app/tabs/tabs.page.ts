@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { AdicionarPage } from '../adicionar/adicionar.page';
 import { Manga } from '../models/manga-model';
 import { TitlesService } from '../service/titulos/titles.service';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-tabs',
@@ -12,8 +13,12 @@ import { TitlesService } from '../service/titulos/titles.service';
 export class TabsPage {
   public mangaForm: Manga;
 
-  constructor(public modalCtrl: ModalController, private titleService: TitlesService) {
+  constructor(public modalCtrl: ModalController, private titleService: TitlesService, private eventEmitterService: EventEmitterService) {
 
+  }
+
+  firstComponentFunction(){    
+    this.eventEmitterService.onFirstComponentButtonClick();    
   }
 
   async presentModal() {
@@ -27,6 +32,7 @@ export class TabsPage {
         if (this.mangaForm != undefined && this.mangaForm != null) {
           console.log(this.mangaForm);
           this.titleService.setManga(this.mangaForm);
+          this.firstComponentFunction();
         }
         
     });

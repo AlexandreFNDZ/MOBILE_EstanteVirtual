@@ -1,27 +1,40 @@
-import { Component, DoCheck, KeyValueDiffers } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TitlesService } from '../service/titulos/titles.service';
 import { Manga } from '../models/manga-model';
 import { PopoverController } from '@ionic/angular';
 import { EditarPage } from '../editar/editar.page';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
   public mangas: any[];
   public filteredMangas: any[];
   public totalTitulos: number;
   public totalVolumes: number;
 
-  constructor(private titleService: TitlesService, public popoverController: PopoverController) {}
+  constructor(private titleService: TitlesService, public popoverController: PopoverController, private eventEmitterService: EventEmitterService) {}
+
+  ngOnInit() {   
+    this.eventEmitterService.subsVar = this.eventEmitterService.    
+    invokeFirstComponentFunction.subscribe(() => {    
+      this.ionViewDidEnter();    
+    });     
+  }
 
   async ionViewDidEnter(){
     await this.titleService.isReady();
     this.mangas = this.titleService.getAllMangas();
     this.filteredMangas = this.mangas;
 
+    this.setTotals();
+    console.log("entrou tab1DidEnter");
+  }
+
+  setTotals() {
     this.totalTitulos = this.filteredMangas.length;
     this.totalVolumes = this.calculaTotalVolumes();
   }
@@ -61,7 +74,7 @@ export class Tab1Page {
       if (manga.id == elementClicked.id) {
         manga.lastIssue++;
 
-        this.totalVolumes = this.calculaTotalVolumes();
+        this.setTotals();
         this.titleService.editManga(elementClicked.id, manga);
       }
     });
